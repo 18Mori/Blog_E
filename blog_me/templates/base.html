@@ -8,31 +8,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Django Blogs</title>
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{% static 'css/home.css' %}" rel ='stylesheet'>
+    
   </head>
 <body>
     <div class="container">
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
-          <div class="col-3 pt-1">
-            <a class="blog-header-logo text-dark text-uppercase"style="letter-spacing: 3px;" href="/">
-              blogMe
-            </a>
+          <div class="col-4 pt-1" style='display: flex; text-transform: uppercase; font-weight: bold; letter-spacing: 2px;'>
+            <a class="blog-header-logo text-dark" href="/">blogMe</a>
+          </div>
+    
+          <div class="col-4 d-flex justify-content-end align-items-center">
+            {% if not user.is_authenticated %}
+            <a class="btn btn-sm btn-warning" style='color: #000; text-decoration: none;'  href="#">Login</a> &nbsp;
+            <a class="btn btn-sm btn-outline-secondary" style='color: #000; text-decoration: none;'  href="#">Register</a>
+            {% else %}
+            <span><a class="btn btn-sm btn-primary" style='color: #ffffff; text-decoration: none;'  href="#">Dashboard</a></span>
+            &emsp;
+            
+            <span><a class="btn btn-sm btn-danger" style='color: #ffffff; text-decoration: none;'  href="#">Logout</a></span>
+            {% endif %}
           </div>
         </div>
-        <nav class="nav nav-masthead justify-content-center rounded p-2 p-md-1">
-          {% for cate in categories %}
-        <a class="p-3 text-muted" href="#">{{ cate.category_names }}</a>
-        {% endfor %}
-        </nav>
-        </div>
       </header>
+
+      <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+          {% for cate in categories %}
+          <a class="p-2 text-muted" href="#">{{ cate.category_names }}</a>
+          {% endfor %}
+        </nav>
+      </div>
+
 {% block content %}
 
 {% endblock %}
 
-<footer class="blog-footer text-center m-2 col-3 pt-2 text-muted text-uppercase" style="letter-spacing: 2px;">
-    <p>Django blog built by Morii</p>
+<footer class="blog-footer text-center text-muted">
+    <p>Django blog built by <a class="text-muted" style='color: #000; text-decoration: none;'  href="#">Morii</a></p>
   </footer>
   </body>
   </html>
