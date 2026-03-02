@@ -1,15 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
 from .models import Category, Blog
 from django.http import HttpResponse
 
 def home(request):
-  categories = Category.objects.all()
   featured_posts = Blog.objects.filter(is_featured=True).order_by('update_at')
   posts = Blog.objects.filter(is_featured=False ,status='Published').order_by('update_at')
   
   
   context = {
-    'categories': categories,
     'featured_posts': featured_posts,
     'posts': posts,
     
@@ -19,9 +17,12 @@ def home(request):
 
 def posts_by_category(request, category_id):
   posts =Blog.objects.filter(category=category_id,status='Published').order_by('update_at')
-  category = get_object_or_404(Category, id=category_id)
+  try:
+    category = Category.objects.get(id=category_id)
+  except Category.DoesNotExist:
+      return redirect('404')
   context = {
     'category' : category,
     'posts' : posts,
   }
-  return render(request, 'post_by_category.html', context=context)
+  return render(request, 'post_by_category.html', context)
