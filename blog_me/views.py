@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
-from django.http import HttpResponse
+from django.db.models import Q
 
 def home(request):
   featured_posts = Blog.objects.filter(is_featured=True).order_by('update_at')
@@ -11,7 +11,6 @@ def home(request):
   except Abouts.DoesNotExist:
     about = None
     
-  
   context = {
     'featured_posts': featured_posts,
     'posts': posts,
@@ -42,3 +41,14 @@ def blog_details(request, blog_slug):
     'blog_post' :blog_post,
   }
   return render(request, 'blog_details.html', context)
+
+
+def search(request):
+    keyword = request.GET.get('keyword')
+    blogs = Blog.objects.filter(Q(title__icontains=keyword) | Q(short_description__icontains=keyword) | Q(blog_body__icontains=keyword), status='Published')
+  
+    context = {
+        'blogs': blogs,
+        'keyword': keyword,
+    }
+    return render(request, 'search_blog.html', context)

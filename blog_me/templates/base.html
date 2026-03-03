@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django Blogs</title>
+    <title>Django Blog</title>
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
   </head>
@@ -15,7 +15,16 @@
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1" style='display: flex; text-transform: uppercase; font-weight: bold; letter-spacing: 2px;'>
-            <a class="blog-header-logo text-dark" href="category/">blogMe</a>
+            <a class="blog-header-logo text-dark" href="{% url 'Home' %}">blogMe</a>
+          </div>
+
+          <div class="col-4">
+            <form action="{% url 'search' %}" method="GET">
+              <div class="input-group">
+                <input class="form-control" type="text" name="keyword" value="{{ keyword }}" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                <button type="submit" class="btn btn-warning ml-2" id="button-search" type="button">Go</button>
+              </div>
+            </form>
           </div>
     
           <div class="col-4 d-flex justify-content-end align-items-center">
@@ -28,7 +37,7 @@
             
             <span><a class="btn btn-sm btn-danger" style='color: #ffffff; text-decoration: none;'  href="#">Logout</a></span>
             {% endif %}
-            <button onclick='window.location.href="/category/"'>Home</button>
+            <button onclick='window.location.href="/"' class='btn btn-sm btn-secondary'>Home</button>
           </div>
         </div>
       </header>
