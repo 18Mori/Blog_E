@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Blog
+from .models import *
 
 
 class BlogAdmin(admin.ModelAdmin):
@@ -9,6 +9,14 @@ class BlogAdmin(admin.ModelAdmin):
   list_editable = ('is_featured', 'status') 
   list_filter = ('status', 'category', 'author', 'is_featured')
 
+class AboutAdmin(admin.ModelAdmin):
+  def has_add_permission(self, request):
+    count = Abouts.objects.all().count()
+    if count == 0:
+      return True
+    return False
 
 admin.site.register(Category)
 admin.site.register(Blog, BlogAdmin)
+admin.site.register(Abouts, AboutAdmin)
+admin.site.register(SocialLinks)

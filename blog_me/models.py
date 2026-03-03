@@ -1,6 +1,32 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+class Abouts(models.Model):
+  heading = models.CharField(max_length=50, blank=True)
+  description = models.TextField(max_length=500)
+  create_at = models.DateTimeField(auto_now_add=True)
+  update_at = models.DateTimeField(auto_now=True)
+  
+  class Meta:
+    verbose_name_plural = 'About'
+  
+  def __str__(self):
+    return self.heading
+  
+class SocialLinks(models.Model):
+  platform = models.CharField(max_length=50)
+  url = models.URLField(max_length=200)
+  create_at = models.DateTimeField(auto_now_add=True)
+  update_at = models.DateTimeField(auto_now=True)
+  
+  class Meta:
+    verbose_name_plural = 'SocialLinks'
+  
+  def __str__(self):
+    return self.platform
+
+
 class Category(models.Model):
   category_names = models.CharField(max_length=100, unique=True)
   create_at = models.DateTimeField(auto_now_add=True)

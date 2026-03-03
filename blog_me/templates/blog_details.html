@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <article>
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-1">{{ blog_post.title }}</h1>
+                    <div class="text-muted fst-italic mb-2">Posted on {{ blog_post.create_at | date:'M d, Y' }} by {{ blog_post.author }}</div>
+                    <a class="badge bg-warning text-decoration-none text-light" href="#!">{{ blog_post.category }}</a>
+                </header>
+
+                <figure class="mb-4"><img class="img-fluid rounded" src="{{ blog_post.featured_image.url }}" alt="img" /></figure>
+                
+                <section class="mb-5">
+                    <p class="fs-5 mb-4">{{ blog_post.short_description }}</p>
+                    <p class="fs-5 mb-4">{{ blog_post.blog_body }}</p>
+
+                </section>
+            </article>
+        </div>
+
+        <!-- Side widgets-->
+        <div class="col-lg-4">
+            <div class="card mb-4 p-3">
+                <h4 class="font-italic">Categories</h4>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="list-unstyled mb-0">
+                                {% for cate in categories %}
+                                <li><a href="{% url 'posts_by_category' cate.id %}">{{ cate.category_names }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {% if social_links %}
+            <div class="card mb-4 p-3">
+                <h4 class="font-italic">Follow Us</h4>
+                <ol class="list-unstyled">
+                    {% for links in social_links %}
+                    <li><a href="{{ links.url }}" target="_blank">{{ links.platform }}</a></li>
+                    {% endfor %}
+                </ol>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
