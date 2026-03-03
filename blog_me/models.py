@@ -29,6 +29,7 @@ class SocialLinks(models.Model):
 
 class Category(models.Model):
   category_names = models.CharField(max_length=100, unique=True)
+  slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
   create_at = models.DateTimeField(auto_now_add=True)
   update_at = models.DateTimeField(auto_now=True)
   
@@ -37,6 +38,13 @@ class Category(models.Model):
     
   def __str__(self):
     return self.category_names
+  
+  def save(self, *args, **kwargs):
+    # automatically populate slug from the name if not provided
+    if not self.slug and self.category_names:
+      from django.utils.text import slugify
+      self.slug = slugify(self.category_names)
+    super().save(*args, **kwargs)
   
 
 STATUS_CHOICES =(

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django Blog</title>
+    <title>Django Blogs</title>
     <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
   </head>
@@ -37,7 +37,7 @@
             
             <span><a class="btn btn-sm btn-danger" style='color: #ffffff; text-decoration: none;'  href="#">Logout</a></span>
             {% endif %}
-            <button onclick='window.location.href="/"' class='btn btn-sm btn-secondary'>Home</button>
+            <button onclick='window.location.href="/"'>Home</button>
           </div>
         </div>
       </header>
@@ -45,7 +45,8 @@
       <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-between">
           {% for cate in categories %}
-          <a class="p-2 text-muted" href="{% url 'posts_by_category' cate.id %}">{{ cate.category_names }}</a>
+          <a class="p-2 text-muted"
+            href="{% if cate.slug %}{% url 'posts_by_category' cate.id cate.slug %}{% else %}{% url 'posts_by_category' cate.id %}{% endif %}">{{ cate.category_names }}</a>
           {% endfor %}
         </nav>
       </div>
