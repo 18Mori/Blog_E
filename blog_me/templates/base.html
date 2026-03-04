@@ -29,15 +29,15 @@
     
           <div class="col-4 d-flex justify-content-end align-items-center">
             <button class="btn btn-sm btn-secondary mr-3" onclick='window.location.href="/"'>Home</button>
-            {% comment %} {% if not user.is_authenticated %} {% endcomment %}
+            {% if not user.is_authenticated %}
             <a class="btn btn-sm btn-warning" style='color: #000; text-decoration: none;'  href="{% url 'login' %}">Login</a> &nbsp;
             <a class="btn btn-sm btn-outline-secondary" style='color: #000; text-decoration: none;'  href="{% url 'register' %}">Register</a>
-            {% comment %} {% else %} {% endcomment %}
-            {% comment %} <span><a class="btn btn-sm btn-primary" style='color: #ffffff; text-decoration: none;'  href="#">Dashboard</a></span> {% endcomment %}
+            {% else %}
+            <span class='navbar-text mr-3 text-muted font-weight-bold'>{{ user }}</span>
             &emsp;
             
             <span><a class="btn btn-sm btn-danger" style='color: #ffffff; text-decoration: none;'  href="{% url 'logout' %}">Logout</a></span>
-            {% comment %} {% endif %} {% endcomment %}
+            {% endif %}
           
           </div>
         </div>
