@@ -33,7 +33,7 @@
             <a class="btn btn-sm btn-warning" style='color: #000; text-decoration: none;'  href="{% url 'login' %}">Login</a> &nbsp;
             <a class="btn btn-sm btn-outline-secondary" style='color: #000; text-decoration: none;'  href="{% url 'register' %}">Register</a>
             {% else %}
-            <span class='navbar-text mr-3 text-muted font-weight-bold'>{{ user }}</span>
+            <span><a class="btn btn-sm btn-primary" style='color: #ffffff; text-decoration: none;'  href="{% url 'dashboard' %}">Dashboard</a></span>
             &emsp;
             
             <span><a class="btn btn-sm btn-danger" style='color: #ffffff; text-decoration: none;'  href="{% url 'logout' %}">Logout</a></span>

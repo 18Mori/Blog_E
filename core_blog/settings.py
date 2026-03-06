@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog_me',
     'crispy_forms',
     'crispy_bootstrap4',
+    'user_dashboard',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'core_blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR := BASE_DIR / 'templates'],
+        'DIRS': [TEMPLATES_DIR := BASE_DIR / 'templates', 'user_dashboard/dashboard'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
