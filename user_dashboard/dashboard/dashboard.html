@@ -2,6 +2,10 @@
 
 {% block content %}
 
-<h3 class="text-center">Dashboard</h3>
+<div class="row">
+    <div class="col-md-9">
+        <span>Logged in as <b>{{ user.email }}</b></span>
+    </div>
+</div>
 
 {% endblock %}
