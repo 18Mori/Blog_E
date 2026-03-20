@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
+from user_dashboard.models import *
 from django.db.models import Q
 from core_blog.forms import RegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -32,7 +33,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-            return redirect('Home')
+            return redirect('dashboard')
     form = AuthenticationForm()
     context = {
         'form': form,

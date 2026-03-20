@@ -18,7 +18,10 @@
             <a class="blog-header-logo text-dark" href="{% url 'Home' %}">blogMe</a>
           </div>
 
-          <div class="col-4">
+          <div class='col-4 d-flex justify-container alighn-items-center'>
+          <div>
+              <button class="btn btn-sm mr-3" onclick='window.location.href="/"'>Home</button>
+              </div>
             <form action="{% url 'search' %}" method="GET">
               <div class="input-group">
                 <input class="form-control" type="text" name="keyword" value="{{ keyword }}" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
@@ -28,15 +31,12 @@
           </div>
     
           <div class="col-4 d-flex justify-content-end align-items-center">
-            <button class="btn btn-sm btn-secondary mr-3" onclick='window.location.href="/"'>Home</button>
             {% if not user.is_authenticated %}
             <a class="btn btn-sm btn-warning" style='color: #000; text-decoration: none;'  href="{% url 'login' %}">Login</a> &nbsp;
             <a class="btn btn-sm btn-outline-secondary" style='color: #000; text-decoration: none;'  href="{% url 'register' %}">Register</a>
             {% else %}
-            <span><a class="btn btn-sm btn-primary" style='color: #ffffff; text-decoration: none;'  href="{% url 'dashboard' %}">Dashboard</a></span>
+            <span><a class="btn btn-sm" style='color: #000000; text-decoration: none;'  href="{% url 'dashboard' %}">Dashboard</a></span>
             &emsp;
-            
-            <span><a class="btn btn-sm btn-danger" style='color: #ffffff; text-decoration: none;'  href="{% url 'logout' %}">Logout</a></span>
             {% endif %}
           
           </div>
