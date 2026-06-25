@@ -29,21 +29,22 @@ def add_category(request):
     }
     return render(request, 'add_category.html', context)
 
-def edit_category(request, category_id):
-    edit_category = get_object_or_404(Category, pk=category_id)
+def edit_category(request, pk):
+    category = get_object_or_404(Category, pk=pk)
     if request.method == 'POST':
-        form = CategoryForm(request.POST, instance=edit_category)
+        form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
             return redirect('categories')
-    form = CategoryForm(instance=edit_category)
+    form = CategoryForm(instance=category)
     context = {
         'form': form,
+        'category': category
     }
     return render(request, 'edit_category.html', context)
 
 
-def delete_category(request, category_id):
-    category = get_object_or_404(Category, pk=category_id)
+def delete_category(request, pk):
+    category = get_object_or_404(Category, pk=pk)
     category.delete()
     return redirect('categories')
