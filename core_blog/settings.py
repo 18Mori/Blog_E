@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
+import pymysql
+pymysql.install_as_MySQLdb()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
@@ -47,6 +51,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -80,9 +85,10 @@ WSGI_APPLICATION = 'core_blog.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    os.environ.get('DB_ENGINE', 'django.db.backends.sqlite3'): {
-        'NAME': os.environ.get('DB_NAME', BASE_DIR / 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}", 
+        conn_max_age=600
+    )
 }
 
 
@@ -135,3 +141,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+WSGI_APPLICATION = 'core_blog.wsgi.application'
+ASGI_APPLICATION = 'core_blog.asgi.application'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# This enables compression and caching of static files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
